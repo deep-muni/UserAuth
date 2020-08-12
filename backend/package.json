@@ -1,0 +1,33 @@
+{
+  "name": "userauth",
+  "version": "1.0.0",
+  "description": "An application to showcase secure user authentication and authorization.",
+  "main": "index.js",
+  "scripts": {
+    "start": "set NODE_ENV=dev&&node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deep-muni94/UserAuth.git"
+  },
+  "keywords": [
+    "authentication",
+    "authorization",
+    "user",
+    "profile",
+    "management"
+  ],
+  "author": "Deep Muni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deep-muni94/UserAuth/issues"
+  },
+  "homepage": "https://github.com/deep-muni94/UserAuth#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.3.4"
+  }
+}

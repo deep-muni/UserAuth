@@ -1,30 +1,46 @@
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, Sequelize) => {
-    return sequelize.define("user", {
+    const User = sequelize.define("user", {
         user_name: {
             type: Sequelize.STRING,
             primaryKey: true
         },
-        user_fname: {
-            type: Sequelize.STRING
+        first_name: {
+            type: Sequelize.STRING,
+            allowNull: false
         },
-        user_lname: {
-            type: Sequelize.STRING
+        last_name: {
+            type: Sequelize.STRING,
+            allowNull: false
         },
         user_email: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: true,
+            allowNull: false
         },
-        user_dob: {
-            type: Sequelize.DATEONLY
+        dob: {
+            type: Sequelize.DATEONLY,
+            allowNull: false
         },
-        user_gender: {
-            type: Sequelize.STRING
+        gender: {
+            type: Sequelize.STRING,
+            allowNull: false
         },
-        user_pass: {
-            type: Sequelize.STRING
+        password: {
+            type: Sequelize.STRING,
+            allowNull: false
         },
     }, {
         timestamps: false,
         freezeTableName: true,
-        tableName: 'user'
+        tableName: 'user',
+        hooks: {
+            beforeCreate: (UserModel) => {
+                const salt = bcrypt.genSaltSync();
+                UserModel.password = bcrypt.hashSync(UserModel.password, salt);
+            }
+        }
     });
+    return User;
 };

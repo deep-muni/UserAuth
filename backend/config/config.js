@@ -11,6 +11,9 @@ const dev = {
         USER: 'root',
         PASS: 'admin123',
         DIALECT: "mysql",
+    },
+    SECRET: {
+        KEY: "devkey"
     }
 };
 
@@ -25,6 +28,9 @@ const test = {
         USER: 'root',
         PASS: 'admin123',
         DIALECT: "mysql",
+    },
+    SECRET: {
+        KEY: "testkey"
     }
 };
 
@@ -39,6 +45,9 @@ const prod = {
         USER: 'root',
         PASS: 'admin123',
         DIALECT: "mysql",
+    },
+    SECRET: {
+        KEY: "prodkey"
     }
 };
 

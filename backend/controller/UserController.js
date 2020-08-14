@@ -1,4 +1,6 @@
 const db = require("../db/connect");
+const jwt = require('jsonwebtoken');
+const env = require("../config/config");
 const bcrypt = require('bcrypt');
 const User = db.user;
 
@@ -39,7 +41,9 @@ const login = (req, res) => {
         .then(data => {
             if(data) {
                 if(validPassword(req.body.password, data.password)) {
-                    res.send({status: true, message: "success"});
+                    jwt.sign({user: data}, env.SECRET.KEY, (err, token) => {
+                        res.send({status: true, message: "success", token: token});
+                    });
                 }else{
                     res.send({status: false, message: "Please check the credentials"});
                 }
@@ -52,9 +56,22 @@ const login = (req, res) => {
         });
 }
 
+const test = (req, res) => {
+    jwt.verify(req.headers.authorization, env.SECRET.KEY, (err, data) => {
+        if(err){
+            console.log(err);
+            res.send({status: true, message: "Please login"});
+        }else{
+            console.log(data);
+            res.send({status: true, message: "Welcome"});
+        }
+    });
+}
+
 const validPassword = (pass, password) => {
     return bcrypt.compareSync(pass, password);
 }
 
 module.exports.register = register;
 module.exports.login = login;
+module.exports.test = test;
